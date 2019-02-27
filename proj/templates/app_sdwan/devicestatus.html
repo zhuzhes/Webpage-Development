@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+{% extends "app_sdwan/base.html" %}
+    {% block body_block%}
+
+    <div class="panel panel-default" >
+      <!-- Default panel contents -->
+      <div class="panel-heading">Device Status</div>
+      <div class="panel-body">
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+      </div>
+
+      <!-- Table -->
+      {% if device_status %}
+
+      <table class="table table-hover">
+        <thead>
+          <th>router_name</th>
+          <th>mgtIP</th>
+          <!-- <th>licenselevel</th> -->
+          <th>version</th>
+          <th>cpu</th>
+          <th>cpu_frequency</th>
+          <th>architecture_name</th>
+          <th>board_name</th>
+          <th>alive</th>
+          <th>Details</th>
+        </thead>
+
+        {% for ds in device_status %}
+        <tr>
+          <td>{{ds.router_name}}</td>
+          <td>{{ds.mgtIP}}</td>
+          <!-- <td>{{ds.licenselevel}}</td> -->
+          <td>{{ds.version}}</td>
+          <td>{{ds.cpu}}</td>
+          <td>{{ds.cpu_frequency}}</td>
+          <td>{{ds.architecture_name}}</td>
+          <td>{{ds.board_name}}</td>
+          <td>{{ds.alive}}</td>
+          <td><a href="{% url 'app_sdwan:routeradding' %}" class="btn btn-primary btn-lg btn-sm" role="button">Details</a></td>
+        </tr>
+        {% endfor %}
+
+        {% endif %}
+
+      </table>
+
+    </div>
+
+
+
+    {% endblock %}
