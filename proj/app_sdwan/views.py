@@ -61,3 +61,39 @@ def devicelist(request):
     devicelist = ClassModel_Router_Basicinfo.objects.order_by('router_name')
     devicelist_dict = {'device_status':devicelist}
     return render(request,'app_sdwan/devicelist.html',devicelist_dict)
+
+
+def routerping(request):
+
+    # router_ip = '45.251.109.168'
+    # username = 'azhe'
+    # password = 'sdlnet'
+    router_port = 8728
+
+    form = forms.ClassForm_Router_pingresult()
+
+    if request.method == 'POST':
+        form = forms.ClassForm_Router_pingresult(request.POST)
+
+        if form.is_valid():
+            #do something here
+            ping_result = routeros_func.RouterPing( router_ip = form.cleaned_data["mgtIP"],
+                                                    router_user = form.cleaned_data["username"],
+                                                    router_pass = form.cleaned_data["password"],
+                                                    dst_ip = form.cleaned_data["destinationIP"],
+                                                    router_port = router_port,
+                                                    )
+            pingsourceIP = form.cleaned_data["mgtIP"]
+            pingdestinationIP = form.cleaned_data["destinationIP"]
+            ping_avg_rtd = ping_result['success']['rtt_avg']
+
+            return render(request,'app_sdwan/routerping.html',{'pingsourceIP':pingsourceIP,
+                                                               'pingdestinationIP':pingdestinationIP,
+                                                               'ping_avg_rtd':ping_avg_rtd,
+                                                               'form':form})
+
+
+        else:
+            print("the router ping form is not valid")
+
+    return render(request,'app_sdwan/routerping.html',{'form':form})

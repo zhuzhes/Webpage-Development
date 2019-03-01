@@ -8,4 +8,5 @@ urlpatterns=[
     url(r'^routeradding/$',views.routeradding,name='routeradding'),
     url(r'^devicelist/$',views.devicelist,name='devicelist'),
     url(r'^routerdeleting/$',views.routerdeleting,name='routerdeleting'),
+    url(r'^routerping/$',views.routerping,name='routerping'),
 ]

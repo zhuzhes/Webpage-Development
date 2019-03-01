@@ -22,3 +22,19 @@ class ClassModel_Router_Register(models.Model):
 
     def __str__(self):
         return self.routerip
+
+
+class ClassModel_Router_pingresult(models.Model):
+    mgtIP = models.CharField(max_length = 60)
+    username = models.CharField(max_length = 60)
+    password = models.CharField(max_length = 60)
+    router_name = models.CharField(max_length = 60)
+    success = models.CharField(max_length = 60)
+    destinationIP = models.CharField(max_length = 60)
+    packet_loss = models.CharField(max_length = 60)
+    rtt_min = models.CharField(max_length = 60)
+    rtt_avg = models.CharField(max_length = 60)
+    time = models.CharField(max_length = 60,unique=True)
+
+    def __str__(self):
+        return self.router_name + self.destinationIP+self.time

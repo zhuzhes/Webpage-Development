@@ -86,3 +86,24 @@ def RouterBasicinfo(router_ip,username,password):
 
     except:
         print ('\nsomething goes wrong while dealing with Router and updating database, please check')
+
+def RouterPing(router_ip,router_port,router_user,router_pass,dst_ip):
+    try:
+        driver = napalm.get_network_driver('ros')
+        print('Connecting to', router_ip, "on port", router_port, "as", router_user)
+        device = driver(hostname=router_ip, username=router_user,
+                        password=router_pass, optional_args={'port': router_port})
+
+        print('Opening ...')
+        device.open()
+
+        ping_result = device.ping(destination = dst_ip,
+                                  count = 3,
+                                  size=64,
+                                  timeout=1000,
+                                  )
+        print(ping_result)
+        return ping_result
+        device.close()
+    except:
+        print ('\nsomething goes wrong while checking router is alive or not, please check')
