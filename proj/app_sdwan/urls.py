@@ -6,5 +6,6 @@ app_name = 'app_sdwan'
 
 urlpatterns=[
     url(r'^routeradding/$',views.routeradding,name='routeradding'),
-    url(r'^devicestatus/$',views.devicestatus,name='devicestatus'),
+    url(r'^devicelist/$',views.devicelist,name='devicelist'),
+    url(r'^routerdeleting/$',views.routerdeleting,name='routerdeleting'),
 ]

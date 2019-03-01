@@ -1,7 +1,7 @@
 from django.db import models
 
 # Create your models here.
-class Class_Model_Model1(models.Model):
+class ClassModel_Router_Basicinfo(models.Model):
     router_name = models.CharField(max_length = 60,unique=True)
     mgtIP = models.CharField(max_length = 60)
     # licenselevel = models.CharField(max_length = 60)
@@ -14,3 +14,11 @@ class Class_Model_Model1(models.Model):
 
     def __str__(self):
         return self.router_name
+
+class ClassModel_Router_Register(models.Model):
+    routerip = models.CharField(max_length = 60,unique = True)
+    username = models.CharField(max_length = 60)
+    password = models.CharField(max_length = 60)
+
+    def __str__(self):
+        return self.routerip

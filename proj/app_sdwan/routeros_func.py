@@ -1,7 +1,7 @@
 import os
 # Configure settings for project
 # Need to run this before calling models from application!
-os.environ.setdefault('DJANGO_SETTINGS_MODULE','learning_templates.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE','proj.settings')
 
 import django
 # Import settings
@@ -12,9 +12,9 @@ from napalm_ros import ros
 import requests
 import socket
 import routeros_api
-from app_sdwan.models import Class_Model_Model1
+from app_sdwan.models import ClassModel_Router_Basicinfo
 
-def RouterOs_Query(cmd='/system/idenity',router_ip='8.8.8.8',username='azhe',password='sdlnet'):
+def RouterOs_Query(cmd='/system/identity',router_ip='8.8.8.8',username='azhe',password='sdlnet'):
 
     try:
         connection = routeros_api.RouterOsApiPool(router_ip, username, password)
@@ -23,7 +23,6 @@ def RouterOs_Query(cmd='/system/idenity',router_ip='8.8.8.8',username='azhe',pas
         result = api.get_resource(cmd).get()
         connection.disconnect()
         print(result)
-
         return result
 
     except:
@@ -46,7 +45,7 @@ def RouterOS_alive(router_ip,router_port,router_user,router_pass):
     except:
         print ('\nsomething goes wrong while checking router is alive or not, please check')
 
-def Router1(router_ip,username,password):
+def RouterBasicinfo(router_ip,username,password):
     try:
         # router_ip = '45.251.109.168'
         # username = 'azhe'
@@ -72,7 +71,7 @@ def Router1(router_ip,username,password):
         board_name = systemresource[0]['board-name']
 
         print("\n################ updating database #################\n")
-        Class_Model_Model1.objects.get_or_create(router_name = systemidentity[0]['name'],
+        ClassModel_Router_Basicinfo.objects.get_or_create(router_name = systemidentity[0]['name'],
                                                 mgtIP=router_ip,
                                                 # licenselevel=systemlicense[0]['nlevel'],
                                                 version = systemresource[0]['version'],
