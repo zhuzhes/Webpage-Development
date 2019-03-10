@@ -19,3 +19,15 @@ class ClassForm_Router_pingresult(forms.ModelForm):
     class Meta:
         model = ClassModel_Router_pingresult
         fields = ("mgtIP","username","password","destinationIP")
+
+class ClassForm_Router_Interface(forms.ModelForm):
+    password = forms.CharField(widget=forms.PasswordInput)
+    class Meta:
+        model = ClassModel_Router_Interface
+        fields = ("mgtIP","username","password")
+
+class ClassForm_Router_Interface_Save(forms.ModelForm):
+    password = forms.CharField(widget=forms.PasswordInput)
+    class Meta:
+        model = ClassModel_Router_Interface
+        fields = "__all__"

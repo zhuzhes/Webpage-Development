@@ -91,9 +91,47 @@ def routerping(request):
                                                                'pingdestinationIP':pingdestinationIP,
                                                                'ping_avg_rtd':ping_avg_rtd,
                                                                'form':form})
-
-
         else:
             print("the router ping form is not valid")
 
     return render(request,'app_sdwan/routerping.html',{'form':form})
+
+def routerinterface(request):
+
+    # router_ip = '45.251.109.168'
+    # username = 'azhe'
+    # password = 'sdlnet'
+    router_port = 8728
+
+    form = forms.ClassForm_Router_Interface()
+
+    if request.method == 'POST':
+        form = forms.ClassForm_Router_Interface(request.POST)
+
+        if form.is_valid():
+            #do something here
+            Interface_result = routeros_func.RouterOs_Query( cmd = 'interface',
+                                                    router_ip = form.cleaned_data["mgtIP"],
+                                                    username = form.cleaned_data["username"],
+                                                    password = form.cleaned_data["password"],
+                                                    )
+            print(Interface_result)
+
+            # for interface in Interface_result:
+            #     ClassModel_Router_Interface.objects.get_or_create(interface_id = interface['id'],
+            #                                                     name=interface['name'],
+            #                                                     type = interface['type'],
+            #                                                     rx_byte = interface['rx-byte'],
+            #                                                     tx_byte = interface['tx-byte'],
+            #                                                     )
+            # interfacelist = ClassModel_Router_Interface.objects.order_by('name')
+            for interface in Interface_result:
+                interface['rx_byte'] = interface.pop('rx-byte')
+                interface['tx_byte'] = interface.pop('tx-byte')
+
+            interfacelist_dict = {'interfacelist':Interface_result}
+            return render(request,'app_sdwan/routerinterface.html',interfacelist_dict)
+        else:
+            print("the router ping form is not valid")
+
+    return render(request,'app_sdwan/routerinterface.html',{'form':form})

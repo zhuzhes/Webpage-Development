@@ -38,3 +38,21 @@ class ClassModel_Router_pingresult(models.Model):
 
     def __str__(self):
         return self.router_name + self.destinationIP+self.time
+
+class ClassModel_Router_Interface(models.Model):
+    mgtIP = models.CharField(max_length = 60)
+    username = models.CharField(max_length = 60)
+    password = models.CharField(max_length = 60)
+    interface_id = models.CharField(max_length = 60)
+    name = models.CharField(max_length = 60)
+    type = models.CharField(max_length = 60)
+    # last_link_down_time = models.CharField(max_length = 60)
+    # last_link_up_time = models.CharField(max_length = 60)
+    rx_byte = models.CharField(max_length = 60)
+    tx_byte = models.CharField(max_length = 60)
+    running = models.CharField(max_length = 60)
+    disabled = models.CharField(max_length = 60)
+    time = models.CharField(max_length = 60)
+
+    def __str__(self):
+        return str(self.id)+ "  " + self.name
